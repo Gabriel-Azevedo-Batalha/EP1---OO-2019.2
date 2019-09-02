@@ -1,4 +1,8 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include "Cliente.hpp"
+#include <string>
 using namespace std;
 
 int main(){
@@ -11,22 +15,32 @@ int main(){
         cout << "4-Encerrar Programa" << endl << endl;
         cout << "Input : ";
 
-        int mode;    
+        string mode;    
         cin >> mode;
         cout << endl;
 
         //Modo Venda
-        if(mode == 1){
+        if(mode == "1"){
             while(1){
                 cout << endl << "VENDA" << endl << endl;
                 //Implementar
+               	
+                //Testes com arquivos
+                /*
+		ofstream myfile;
+                myfile.open ("example.txt");
+                myfile << test;
+                myfile.close();
+                vector<int> test = getline(myfile,line);
+                test.push_back(25);
+		*/
 
                 break;
             }
         }
 
         //Modo Recomendação
-        else if(mode == 2){
+        else if(mode == "2"){
             while(1){
                 cout << "RECOMENDAÇÃO" << endl << endl;
                 //Implementar
@@ -36,7 +50,7 @@ int main(){
         }
 
         //Modo Estoque
-        else if(mode == 3){
+        else if(mode == "3"){
             while(1){
                 cout << "ESTOQUE" << endl << endl;
                 //Implementar
@@ -46,7 +60,7 @@ int main(){
         }
 
         //Fechar Programa
-        else if(mode == 4)
+        else if(mode == "4")
             break;
         
         //Entrada Inválida

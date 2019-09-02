@@ -4,13 +4,13 @@ using namespace std;
 
 class Cliente{
     private:
-        string nome;
+        string CPF;
         string senha;
         int socio;
     public:
         Cliente();
-        ~Cliente();
+        //~Cliente();
         int getSocio();
         void setSocio();
         int login();
-}
+};
