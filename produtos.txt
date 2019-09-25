@@ -1,6 +1,5 @@
-Livro X;35.99;5;Literatura Ficcao 
-CD X;15.9;35;CD Rock 
-Boneco;150.5;3;Brinquedo Infantil 
-Água Premium;2000;1;Alimento Luxo 
-Luvas;14.99;20;Roupas Frio 
-Pasta de dente;10;5;Higiene Consumível 
+Livro X;35.99;1;Literatura Ficcao 
+CD X;10.5;9;CD Rock 
+Boneco;150.99;3;Brinquedo Infantil 
+Luvas;10;9;Roupas Frio
+Vinho Caro;2000;0;Luxo Alimento 
