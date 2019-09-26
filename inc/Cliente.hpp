@@ -3,21 +3,26 @@
 #include <iostream> 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 class Cliente{
     private:
         string CPF;
         string senha;
-        int socio;
         vector<string> categoriasRecentes;
+        bool logado;
+        int socio;
     public:
         Cliente();
         //~Cliente();
-        int getSocio();
+        bool getSocio();
         void setSocio();
         string getCPF();
-        int login();
+        bool getLogado();
+        void login();
+        void cadastrar(string CPF);
 };
 
 #endif

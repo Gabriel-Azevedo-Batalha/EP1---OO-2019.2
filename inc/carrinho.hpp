@@ -13,7 +13,12 @@ using namespace std;
             vector<string> nomesProdutos, categorias;
         public:
             Carrinho();
+            //~Carrinho();
             void addCarrinho(string buscaNome);
+            void remCarrinho(string buscaNome);
+            void mostrarCarrinho();
             float getTotal(); 
+            vector<string> getNomesProdutos();
+            vector<string> getCategorias();
     };
 #endif

@@ -1,5 +1,6 @@
 Livro X;35.99;1;Literatura Ficcao 
 CD X;10.5;9;CD Rock 
 Boneco;150.99;3;Brinquedo Infantil 
-Luvas;10;9;Roupas Frio
+Luvas;10;6;Roupas Frio
 Vinho Caro;2000;0;Luxo Alimento 
+Donut;9.99;4;Alimento Doce 
