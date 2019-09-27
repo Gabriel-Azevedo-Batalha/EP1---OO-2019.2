@@ -124,10 +124,10 @@ int main(){
         //Modo Estoque
         else if(mode == "3"){
             while(1){
+                system("clear");
                 cout << "---ESTOQUE---" << endl << endl;
                 cout << "1-Adicionar produto" << endl;
-                cout << "2-Alterar produto" << endl;
-                cout << "3-Sair" << endl << endl;
+                cout << "2-Sair" << endl << endl;
                 cout << "Input -> ";
                 cin >> mode;
                 if(mode == "1"){
@@ -149,9 +149,6 @@ int main(){
                     novoProduto.addLista();
                 }    
                 else if(mode == "2"){
-                    //Implementar
-                }
-                else if(mode == "3"){
                     break;
                 }
                 else{

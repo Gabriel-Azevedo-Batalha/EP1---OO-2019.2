@@ -1,3 +1,3 @@
 12345678901;hehe;1;Roupas Frio Alimento Doce Brinquedo Infantil 
 10987654321;hehe;1;Literatura Ficcao Brinquedo Infantil 
-12312312312;hehe;0;Roupas Frio Brinquedo Infantil Alimento Doce 
+12312312312;hehe;0;Nada 
