@@ -16,6 +16,8 @@ Produto::Produto(string nome, float preco, int estoque, vector<string> categoria
     this->estoque = estoque;
     this->categorias = categorias;
 }
+Produto::~Produto(){
+}
 void Produto::addLista(){
     ofstream produto;
     produto.open("produtos.txt",ios::app);

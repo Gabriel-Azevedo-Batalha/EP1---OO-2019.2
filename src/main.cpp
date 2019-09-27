@@ -1,13 +1,12 @@
 #include "carrinho.hpp"
 #include "Cliente.hpp"
 #include "produto.hpp"
+#include "socio.hpp"
 #include <stdlib.h>
 using namespace std;
 
 int main(){
     // Interface
-    cout << endl << endl;
-
     fstream produtos;
     Cliente cliente;
     while(1){
@@ -45,7 +44,7 @@ int main(){
                     getline(cin,buscaNome);
                     cout << endl;
                     carrinho.addCarrinho(buscaNome);
-                    cout << "Total : " << carrinho.getTotal() << endl;
+                    cout << "Total : R$" << carrinho.getTotal() << endl;
                 }
                 else if (mode == "2" && (carrinho.getNomesProdutos()).size() > 0){
                     string buscaNome;
@@ -60,20 +59,55 @@ int main(){
                 }
                 else if (mode == "2")
                     cout << "ERRO : Não há produtos no carrinho" << endl << endl;
-                else if (mode == "3"){
+                else if (mode == "3" && (carrinho.getNomesProdutos()).size() > 0){
                     system("clear");
+                    string opc;
                     cliente.login();
                     if (cliente.getLogado() == true){
-                        carrinho.mostrarCarrinho();
+                        if(cliente.getSocio() == false){
+                            cout << "Cliente não sócio. Deseja se tornar ?[S/N]" << endl << "Input -> ";
+                            cin >> opc;
+                            if (!(opc == "S" || opc == "s")){
+                                carrinho.mostrarCarrinho();
+                                cliente.setCategorias(carrinho.getCategorias());
+                                cliente.pagar(carrinho.getTotal());
+                                //break;
+                            }
+                            else{
+                                carrinho.mostrarCarrinho();
+                                cliente.setCategorias(carrinho.getCategorias());
+                                cliente.tornarSocio(cliente.getCPF());
+                                Socio socio;
+                                socio.calcTotal(carrinho.getTotal());
+                                socio.pagar(true);
+                                socio.reset();
+                                //break;
+                            }
+                            
+                        }
+                        else{
+                            carrinho.mostrarCarrinho();
+                            cliente.setCategorias(carrinho.getCategorias());
+                            Socio socio;
+                            socio.calcTotal(carrinho.getTotal());
+                            socio.pagar(false);
+                            socio.reset();
+                            //break;
+                        }
                     }
                     else 
                         cout << "ERRO : Não foi possível fazer o login" << endl << endl;
-                }
+                    cliente.reset();
+                    carrinho.reset();
+                }  
+                else if (mode == "3")
+                    cout << "ERRO : Não há produtos no carrinho" << endl << endl;
                 else if(mode == "4"){
+                    carrinho.~Carrinho();
                     break;
                 }
                 else{
-                    cout << endl << "Entrada inválida" << endl << endl << endl;
+                    cout << endl << "ERRO : Entrada inválida" << endl << endl << endl;
                 }
             }
         }
@@ -121,7 +155,7 @@ int main(){
                     break;
                 }
                 else{
-                    cout << endl << "Entrada inválida" << endl << endl << endl;
+                    cout << endl << "ERRO : Entrada inválida" << endl << endl << endl;
                 }
             }
         }
@@ -132,7 +166,7 @@ int main(){
         
         //Entrada Inválida
         else
-            cout << "Entrada inválida" << endl << endl;
+            cout << "ERRO : Entrada inválida" << endl << endl;
     }
     return 0;
 }

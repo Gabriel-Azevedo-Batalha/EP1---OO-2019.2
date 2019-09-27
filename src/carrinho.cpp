@@ -1,7 +1,14 @@
 #include "carrinho.hpp"
 
 Carrinho::Carrinho(){
-    this->total = 0;
+    this->total = 0.0;
+}
+Carrinho::~Carrinho(){
+}
+void Carrinho::reset(){
+    this->total = 0.0;
+    this->nomesProdutos.clear();
+    this->categorias.clear();
 }
 void Carrinho::addCarrinho(string buscaNome){
     fstream produtos, temp;
@@ -32,7 +39,11 @@ void Carrinho::addCarrinho(string buscaNome){
         temp << nome << ";" << preco <<";" << estoque << ";" << linha << endl;
         
         //Trocar
-        
+         if (nome == buscaNome && falta == false){
+            std::istringstream iss(linha);
+            for(; iss >> linha; )
+            categorias.push_back(linha);
+        }
         if (nome == buscaNome && falta == false){
             //cout << nome << " " << preco << " " << estoque;
             this->total += preco;
@@ -63,10 +74,25 @@ float Carrinho::getTotal(){
     return this->total;
 }
 void Carrinho::mostrarCarrinho(){
+    fstream produtos;
+    string nome, linha;
+    float preco;
     cout << "Itens no carrinho:" << endl;
-    for(unsigned int i=0;i<this->nomesProdutos.size();i++)
-        cout << " -" << this->nomesProdutos[i] << endl;
-    cout << "Total : " << this->total << endl;
+    for(unsigned int i=0;i<this->nomesProdutos.size();i++){
+        cout << " -" << this->nomesProdutos[i];
+        produtos.open("produtos.txt",ios::in);
+        while(getline(produtos,nome,';')){
+            if (produtos.eof())
+                break;
+            getline(produtos,linha,';');
+            preco = stof(linha);
+            if (nomesProdutos[i] == nome)
+                cout << " R$" << preco << endl;
+            getline(produtos,linha);
+        }
+        produtos.close();
+    }
+    cout << "Total : R$" << this->total << endl;
 }
 void Carrinho::remCarrinho(string buscaNome){
     bool encontrado = false;
@@ -111,4 +137,5 @@ vector<string> Carrinho::getNomesProdutos(){
 }
 vector<string> Carrinho::getCategorias(){
     return this->categorias;
+
 }

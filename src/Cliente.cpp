@@ -4,11 +4,40 @@
 Cliente::Cliente(){
     this->logado = false;
 }
+Cliente::~Cliente(){
+}
+void Cliente::reset(){
+    this->logado = false;
+    this->categoriasRecentes.clear();
+}
 bool Cliente::getSocio(){
     return socio;
 }
-void Cliente::setSocio(){
-    socio = 1;
+void Cliente::tornarSocio(string buscaCPF){
+    fstream clientes,temp;
+    string CPF, linha;
+    clientes.open("clientes.txt",ios::in);
+    temp.open("temp.txt",ios::out|ios::app);
+    while(getline(clientes,CPF,';')){
+        if (clientes.eof())
+                break;
+        temp << CPF << ";";
+        getline(clientes,linha,';');
+        temp << linha << ";";
+        getline(clientes,linha,';');
+        if(CPF == buscaCPF){
+            temp << "1;";
+        }
+        else
+            temp << linha << ";";
+        getline(clientes,linha);
+        temp << linha << endl;
+    }
+    clientes.close();
+    std::remove("clientes.txt");
+    temp.close();
+    std::rename("temp.txt","clientes.txt");
+    std::remove("temp.txt");
 }
 string Cliente::getCPF(){
     return CPF;
@@ -22,41 +51,44 @@ void Cliente::login(){
     fstream clientes;
     while (tentativa == true){
         tentativa = false;
-        cout << "(Login)" << endl << endl;
-        cout << "CPF :" << endl << endl;
-        cout << "Input -> ";
-        cin >> buscaCPF;
-        cout << endl;
+        std::cout << "(Login)" << endl << endl;
+        std::cout << "CPF :" << endl << endl;
+        std::cout << "Input -> ";
+        std::cin >> buscaCPF;
+        std::cout << endl;
         clientes.open("clientes.txt",ios::in);
         while(getline(clientes,CPF,';')){
             if (clientes.eof())
                 break;
             getline(clientes,senha,';');
             getline(clientes,linha,';');
-            //cout << "Lendo : " << CPF << " " << senha << " " << linha << " ";
             this->socio = stoi(linha);
             getline(clientes,linha);
-            //cout << linha << endl;
             if (CPF == buscaCPF){
                 encontrado = true;
+                this->CPF = CPF;
                 break;
             }
         }
+        clientes.close();
         if (encontrado == false){
-            cout << "CPF não cadastrado. Deseja cadastrar ?[S/N]" << endl << endl;
-            cout << "Input -> ";
-            cin >> modo;
-            cout << endl;
+            std::cout << "CPF não cadastrado. Deseja cadastrar ?[S/N]" << endl << endl;
+            std::cout << "Input -> ";
+            std::cin >> modo;
+            std::cout << endl;
             if (modo == "s" || modo == "S"){
                 this->cadastrar(buscaCPF);
                 this->logado = true;
+                this->CPF = buscaCPF;
+                this->socio = 0;
             }
         }
         else if (encontrado == true){
             while(1){
-                cout << "Senha :" << endl << endl;
-                cout << "Input -> ";
-                cin >> senhaBusca;
+                std::cout << "Senha :" << endl << endl;
+                std::cout << "Input -> ";
+                std::cin >> senhaBusca;
+                std::cout << endl << endl << endl;
                 if(senhaBusca == senha){
                     std::istringstream iss(linha);
                     for(; iss >> linha; )
@@ -65,13 +97,13 @@ void Cliente::login(){
                     break;
                 }
                 else{
-                    cout << "Senha incorreta. Tentar novamente ?" << endl << endl;
-                    cout << "1- Digitar senha novamente" << endl;
-                    cout << "2- Digitar CPF novamente" << endl;
-                    cout << "3- Sair" << endl;
-                    cout << "Input -> ";
-                    cin >> modo;
-                    cout << endl;
+                    std::cout << "Senha incorreta. Tentar novamente ?" << endl << endl;
+                    std::cout << "1- Digitar senha novamente" << endl;
+                    std::cout << "2- Digitar CPF novamente" << endl;
+                    std::cout << "3- Sair" << endl;
+                    std::cout << "Input -> ";
+                    std::cin >> modo;
+                    std::cout << endl;
                     if (modo == "1")
                         continue;
                     else if (modo == "2"){
@@ -81,7 +113,7 @@ void Cliente::login(){
                     else if (modo == "3")
                         break;
                     else
-                        cout << "Entrada inválida" << endl << endl;
+                        std::cout << "Entrada inválida" << endl << endl;
                 }
             }
         }
@@ -90,7 +122,7 @@ void Cliente::login(){
 void Cliente::cadastrar(string CPF){
     fstream clientes;
     clientes.open("clientes.txt",ios::out|ios::app);
-    cout << "Novo Cadastro" << endl << endl;
+    std::cout << "Novo Cadastro" << endl << endl;
     while(1){
         int teste = 0; 
         if (CPF.length() == 11){
@@ -106,19 +138,52 @@ void Cliente::cadastrar(string CPF){
             break;
         }
         else {
-            cout << endl << "CPF Inválido" << endl << endl;
-            cout << "CPF : " << CPF << endl;
-            cout << "Input -> ";
-            cin >> CPF;
-            cout << endl;
+            std::cout << endl << "CPF Inválido" << endl << endl;
+            std::cout << "CPF : " << CPF << endl;
+            std::cout << "Input -> ";
+            std::cin >> CPF;
+            std::cout << endl;
 
         }
     }
-    cout << "CPF : " << CPF << endl;
-    cout << "Senha :" << endl << endl;
-    cout << "Input -> ";
-    cin >> this->senha;
-    cout << endl;
+    std::cout << "CPF : " << CPF << endl;
+    std::cout << "Senha :" << endl << endl;
+    std::cout << "Input -> ";
+    std::cin >> this->senha;
+    std::cout << endl << endl << endl;
     clientes << CPF << ";" << this->senha << ";0;Nenhuma" << endl;
     clientes.close();
 }
+void Cliente::pagar(float total){
+    std::cout << "Total Real : R$" << total << endl;
+    std::cout << "Compra efetuada" << endl;
+}
+void Cliente::setCategorias(vector<string> categorias){
+    fstream clientes,temp;
+    string CPF, linha;
+    clientes.open("clientes.txt",ios::in);
+    temp.open("temp.txt",ios::out|ios::app);
+    while(getline(clientes,CPF,';')){
+        if (clientes.eof())
+                break;
+        temp << CPF << ";";
+        getline(clientes,linha,';');
+        temp << linha << ";";
+        getline(clientes,linha,';');
+        temp << linha << ";";
+        getline(clientes,linha);
+        if(CPF == this->CPF){
+            for(unsigned int i=0;i<categorias.size();i++)
+                temp << categorias[i] << " ";
+            temp << endl;
+        }
+        else
+            temp << linha << endl;
+    }
+    clientes.close();
+    std::remove("clientes.txt");
+    temp.close();
+    std::rename("temp.txt","clientes.txt");
+    std::remove("temp.txt");
+}
+

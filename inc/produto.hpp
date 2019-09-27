@@ -15,6 +15,7 @@ class Produto{
     public:
         Produto();
         Produto(string nome, float preco, int estoque, vector<string> categorias);
+        ~Produto();
         float getPreco();
         void setPreco(float preco);
         vector<string> getCategorias();

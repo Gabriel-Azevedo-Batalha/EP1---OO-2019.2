@@ -16,13 +16,16 @@ class Cliente{
         int socio;
     public:
         Cliente();
-        //~Cliente();
+        ~Cliente();
         bool getSocio();
-        void setSocio();
+        void tornarSocio(string buscaCPF);
         string getCPF();
         bool getLogado();
         void login();
         void cadastrar(string CPF);
+        void pagar(float total);
+        void setCategorias(vector<string> categorias);
+        void reset();
 };
 
 #endif
