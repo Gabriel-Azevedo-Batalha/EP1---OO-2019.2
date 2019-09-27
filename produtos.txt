@@ -1,8 +1,7 @@
-Livro X;35.99;119;Literatura Ficcao 
-CD X;15.49;129;Música Rock 
-Boneco;150.99;117;Brinquedo Infantil 
-Luvas;10;134;Roupas
-Vinho Caro;2000;113;Alimento Luxo 
+Livro X;35.99;19;Literatura Ficcao 
+CD X;15.49;12;Música Rock 
+Boneco;150.99;17;Brinquedo Infantil 
+Luvas;10;14;Roupas
+Vinho Caro;2000;1;Alimento Luxo 
 Donut;8;104;Alimento Doce 
-Churrasqueira;1000;3;Utensílio
-
+Churrasqueira;1000;3;Utensílio 

@@ -41,7 +41,7 @@ void Produto::addLista(){
                 temp << endl;
             }
             else 
-                temp << nome << ";" << preco << ";" << estoque+this->estoque << ";" << linha << endl;
+                temp << nome << ";" << preco << ";" << estoque << ";" << linha << endl;
     }
     if (encontrado == false){
         temp << this->nome << ";" << this->preco << ";" << this->estoque << ";";
