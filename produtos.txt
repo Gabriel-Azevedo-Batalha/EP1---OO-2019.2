@@ -1,7 +1,11 @@
 Livro X;35.99;19;Literatura Ficcao 
-CD X;15.49;12;Música Rock 
+CD X;15.49;5;Música Rock
 Boneco;150.99;17;Brinquedo Infantil 
-Luvas;10;14;Roupas
-Vinho Caro;2000;1;Alimento Luxo 
-Donut;8;104;Alimento Doce 
-Churrasqueira;1000;3;Utensílio 
+Luvas;10;3;Roupa 
+Vinho Caro;2000;5;Alimento Luxo 
+Donut;8;99;Alimento Doce 
+Churrasqueira;1000;2;Utensílio 
+Macarrão instantâneo;35.75;48;Alimento 
+Notebook;1849.99;6;Eletrônico 
+Revista WOW!;8.8;7;Literatura Entreterimento 
+Revista Programando C++;17.4;10;Literatura Informativo 

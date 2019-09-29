@@ -34,10 +34,17 @@ void Produto::addLista(){
         getline(produtos,linha);
             if (nome == this->nome){
                 encontrado = true;
+                string opc;
                 temp << nome << ";" << this->preco << ";" << estoque+this->estoque << ";";
-                for(unsigned int i=0;i<this->categorias.size();i++){
-                    temp << this->categorias[i] << " ";
+                cout << "Deseja alterar as categorias do produto existente?[S/N]" << endl << "Input -> ";
+                cin >> opc;
+                if(opc == "S" || opc == "s"){
+                    for(unsigned int i=0;i<this->categorias.size();i++){
+                        temp << this->categorias[i] << " ";
+                    }
                 }
+                else 
+                    temp << linha;
                 temp << endl;
             }
             else 

@@ -24,8 +24,10 @@ class Cliente{
         void login();
         void cadastrar(string CPF);
         void pagar(float total);
+        vector<string> getCategorias();
         void setCategorias(vector<string> categorias);
         void reset();
+        void recomendar();
 };
 
 #endif

@@ -1,3 +1,11 @@
-12345678901;hehe;1;Roupas Frio Alimento Doce Brinquedo Infantil 
-10987654321;hehe;1;Literatura Ficcao Brinquedo Infantil 
-12312312312;hehe;0;Nada 
+12345678901;haha;1;Roupa Música Rock Alimento Luxo Roupa Música Rock 
+10987654321;hehe;1;Roupa Alimento Doce 
+12312312312;hihi;0;Música Rock Música Rock 
+32132132132;hoho;0;Roupa Música Rock Roupa 
+10020030045;huhu;1;Literatura Entreterimento Literatura Entreterimento Eletrônico 
+99999999999;yolo;1;Alimento Doce Literatura Entreterimento 
+90080070056;senha123;1;Utensílio Eletrônico Alimento 
+11111111111;111;0;Eletrônico Música Rock 
+22222222222;222;1;Alimento 
+44444444444;444;0;Roupa 
+33333333333;333;0;Música Rock 

@@ -10,6 +10,13 @@ void Carrinho::reset(){
     this->nomesProdutos.clear();
     this->categorias.clear();
 }
+void Carrinho::reset(vector<string> nomesProdutos){
+    this->categorias.clear();
+    for(unsigned int i=0;i<nomesProdutos.size();i++){
+        this->remCarrinho(nomesProdutos[i]);
+    }
+    this->total = 0.0;
+}
 void Carrinho::addCarrinho(string buscaNome){
     fstream produtos, temp;
     string nome, linha;
@@ -19,7 +26,6 @@ void Carrinho::addCarrinho(string buscaNome){
     bool encontrado = false, falta = false;
     produtos.open("produtos.txt",ios::in);
     temp.open("temp.txt",ios::out|ios::app);
-    //Busca dos produtos
     while(getline(produtos,nome,';')){
         if (produtos.eof())
             break;
@@ -37,24 +43,19 @@ void Carrinho::addCarrinho(string buscaNome){
             }
         }
         temp << nome << ";" << preco <<";" << estoque << ";" << linha << endl;
-        
-        //Trocar
+
          if (nome == buscaNome && falta == false){
             std::istringstream iss(linha);
             for(; iss >> linha; )
             categorias.push_back(linha);
         }
         if (nome == buscaNome && falta == false){
-            //cout << nome << " " << preco << " " << estoque;
             this->total += preco;
             this->nomesProdutos.push_back(nome);
             for(unsigned int i=0;i<categorias.size();i++){
+                cout << "Adicionado : " << categorias[i] << endl;
                 this->categorias.push_back(categorias[i]);
             }
-            /*for(unsigned int i=0;i<this->categorias.size();i++)
-                cout << " " << this->categorias[i];
-            cout << endl;
-            */
             encontrado = true;
             categorias.clear();
         }
@@ -100,14 +101,13 @@ void Carrinho::remCarrinho(string buscaNome){
         if(this->nomesProdutos[i] == buscaNome){
             this->nomesProdutos.erase(this->nomesProdutos.begin()+i);
             fstream produtos, temp;
-            string nome, linha;
+            string nome, linha, linha2;
             float preco;
             int estoque;
             vector<string> categorias;
             produtos.open("produtos.txt",ios::in);
             temp.open("temp.txt",ios::out|ios::app);
             encontrado = true;
-            //Busca dos produtos
             while(getline(produtos,nome,';')){
                 if (produtos.eof())
                     break;
@@ -116,11 +116,17 @@ void Carrinho::remCarrinho(string buscaNome){
                 getline(produtos,linha,';');
                 estoque = stoi(linha);
                 getline(produtos,linha);
+                linha2 = linha;
                 if (nome == buscaNome){
                     estoque += 1;
                     this->total -= preco;
+                    std::istringstream iss(linha);
+                    for(; iss >> linha; ){
+                        cout << "Removido : " << linha << endl;
+                        this->remCategorias(linha);
+                    }
                 }
-                temp << nome << ";" << preco <<";" << estoque << ";" << linha << endl;
+                temp << nome << ";" << preco <<";" << estoque << ";" << linha2 << endl;
             }
             produtos.close();
             remove("produtos.txt");
@@ -137,5 +143,10 @@ vector<string> Carrinho::getNomesProdutos(){
 }
 vector<string> Carrinho::getCategorias(){
     return this->categorias;
-
+}
+void Carrinho::remCategorias(string categoriasBusca){
+    for(unsigned int i=0;i<this->categorias.size();i++){
+        if (this->categorias[i] == categoriasBusca)
+            this->categorias.erase(this->categorias.begin()+i);
+    }
 }

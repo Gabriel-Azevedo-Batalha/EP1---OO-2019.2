@@ -28,16 +28,17 @@ void Cliente::tornarSocio(string buscaCPF){
         if(CPF == buscaCPF){
             temp << "1;";
         }
-        else
+        else{
             temp << linha << ";";
         getline(clientes,linha);
         temp << linha << endl;
+        }
     }
     clientes.close();
-    std::remove("clientes.txt");
+    remove("clientes.txt");
     temp.close();
-    std::rename("temp.txt","clientes.txt");
-    std::remove("temp.txt");
+    rename("temp.txt","clientes.txt");
+    remove("temp.txt");
 }
 string Cliente::getCPF(){
     return CPF;
@@ -51,11 +52,11 @@ void Cliente::login(){
     fstream clientes;
     while (tentativa == true){
         tentativa = false;
-        std::cout << "(Login)" << endl << endl;
-        std::cout << "CPF :" << endl << endl;
-        std::cout << "Input -> ";
-        std::cin >> buscaCPF;
-        std::cout << endl;
+        cout << "(Login)" << endl << endl;
+        cout << "CPF :" << endl << endl;
+        cout << "Input -> ";
+        cin >> buscaCPF;
+        cout << endl;
         clientes.open("clientes.txt",ios::in);
         while(getline(clientes,CPF,';')){
             if (clientes.eof())
@@ -72,10 +73,10 @@ void Cliente::login(){
         }
         clientes.close();
         if (encontrado == false){
-            std::cout << "CPF não cadastrado. Deseja cadastrar ?[S/N]" << endl << endl;
-            std::cout << "Input -> ";
-            std::cin >> modo;
-            std::cout << endl;
+            cout << "CPF não cadastrado. Deseja cadastrar ?[S/N]" << endl << endl;
+            cout << "Input -> ";
+            cin >> modo;
+            cout << endl;
             if (modo == "s" || modo == "S"){
                 this->cadastrar(buscaCPF);
                 this->logado = true;
@@ -85,10 +86,10 @@ void Cliente::login(){
         }
         else if (encontrado == true){
             while(1){
-                std::cout << "Senha :" << endl << endl;
-                std::cout << "Input -> ";
-                std::cin >> senhaBusca;
-                std::cout << endl << endl << endl;
+                cout << "Senha :" << endl << endl;
+                cout << "Input -> ";
+                cin >> senhaBusca;
+                cout << endl << endl << endl;
                 if(senhaBusca == senha){
                     std::istringstream iss(linha);
                     for(; iss >> linha; )
@@ -97,13 +98,13 @@ void Cliente::login(){
                     break;
                 }
                 else{
-                    std::cout << "Senha incorreta. Tentar novamente ?" << endl << endl;
-                    std::cout << "1- Digitar senha novamente" << endl;
-                    std::cout << "2- Digitar CPF novamente" << endl;
-                    std::cout << "3- Sair" << endl;
-                    std::cout << "Input -> ";
-                    std::cin >> modo;
-                    std::cout << endl;
+                    cout << "Senha incorreta. Tentar novamente ?" << endl << endl;
+                    cout << "1- Digitar senha novamente" << endl;
+                    cout << "2- Digitar CPF novamente" << endl;
+                    cout << "3- Sair" << endl;
+                    cout << "Input -> ";
+                    cin >> modo;
+                    cout << endl;
                     if (modo == "1")
                         continue;
                     else if (modo == "2"){
@@ -138,25 +139,26 @@ void Cliente::cadastrar(string CPF){
             break;
         }
         else {
-            std::cout << endl << "CPF Inválido" << endl << endl;
-            std::cout << "CPF : " << CPF << endl;
-            std::cout << "Input -> ";
-            std::cin >> CPF;
-            std::cout << endl;
+            cout << endl << "CPF Inválido" << endl << endl;
+            cout << "CPF : " << CPF << endl;
+            cout << "Input -> ";
+            cin >> CPF;
+            cout << endl;
 
         }
     }
-    std::cout << "CPF : " << CPF << endl;
-    std::cout << "Senha :" << endl << endl;
-    std::cout << "Input -> ";
-    std::cin >> this->senha;
-    std::cout << endl << endl << endl;
+    cout << "CPF : " << CPF << endl;
+    cout << "Senha :" << endl << endl;
+    cout << "Input -> ";
+    cin >> this->senha;
+    cout << endl << endl << endl;
     clientes << CPF << ";" << this->senha << ";0;Nenhuma" << endl;
+    this->categoriasRecentes.push_back("Nenhuma");
     clientes.close();
 }
 void Cliente::pagar(float total){
-    std::cout << "Total Real : R$" << total << endl;
-    std::cout << "Compra efetuada" << endl;
+    cout << "Total Real : R$" << total << endl;
+    cout << "Compra efetuada" << endl;
 }
 void Cliente::setCategorias(vector<string> categorias){
     fstream clientes,temp;
@@ -172,18 +174,143 @@ void Cliente::setCategorias(vector<string> categorias){
         getline(clientes,linha,';');
         temp << linha << ";";
         getline(clientes,linha);
-        if(CPF == this->CPF){
+        if(CPF == this->CPF && linha == "Nenhuma"){
             for(unsigned int i=0;i<categorias.size();i++)
                 temp << categorias[i] << " ";
             temp << endl;
         }
+        else if (CPF == this->CPF){
+            temp << linha;
+            for(unsigned int i=0;i<categorias.size();i++)
+                temp << categorias[i] << " ";
+            temp << endl;
+        }
+
         else
             temp << linha << endl;
     }
     clientes.close();
-    std::remove("clientes.txt");
+    remove("clientes.txt");
     temp.close();
-    std::rename("temp.txt","clientes.txt");
-    std::remove("temp.txt");
+    rename("temp.txt","clientes.txt");
+    remove("temp.txt");
+}
+vector<string> Cliente::getCategorias(){
+    return this->categoriasRecentes;
+}
+void Cliente::recomendar(){
+    //
+    //Declaração de variáveis
+    //
+    fstream produtos, ordenacao;
+    vector<int> recomendacao, numeracao;
+    vector<string>temp;
+    string nome, preco, estoque, linha, nomeOrd, linhaOrd;
+    int count = 1, n;
+    //
+    //Criando arquivo de numeração dos produtos
+    //
+    produtos.open("produtos.txt",ios::in);
+    ordenacao.open("ordenacao.txt",ios::out|ios::app);
+    while(getline(produtos,nome,';')){
+        if (produtos.eof())
+            break;
+        ordenacao << nome << ";" << count << endl;
+        getline(produtos,preco,';');
+        getline(produtos,estoque,';');
+        getline(produtos,linha);
+        count += 1;
+        recomendacao.push_back(0);
+        numeracao.push_back(count-1);
+    }
+    produtos.close();
+    ordenacao.close();
+    //
+    //Adicionando Graus de recomendação
+    //
+    for(unsigned int i=0;i<this->categoriasRecentes.size();i++){
+        produtos.open("produtos.txt",ios::in);
+        while(getline(produtos,nome,';')){
+            if (produtos.eof())
+                break;
+            getline(produtos,preco,';');
+            getline(produtos,estoque,';');
+            getline(produtos,linha);
+            std::istringstream iss(linha);
+            for(; iss >> linha; )
+                temp.push_back(linha);
+            for(unsigned int j=0;j<temp.size();j++){
+                if (temp[j] == categoriasRecentes[i]){
+                    ordenacao.open("ordenacao.txt",ios::in);
+                    while(getline(ordenacao,nomeOrd,';')){
+                        if(ordenacao.eof())
+                            break;
+                        getline(ordenacao,linhaOrd);
+                        if(nomeOrd == nome){
+                            n = stoi(linhaOrd);
+                            break;
+                        }
+                    }
+                    ordenacao.close();
+                    recomendacao[n-1] += 1;
+                }
+            }
+            temp.clear();
+            
+        }
+        produtos.close();
+        
+    }
+    //
+    //Ordenador
+    //
+    for (unsigned int i=0;i<recomendacao.size();i++){
+        for(unsigned int j=0;j<i;j++){
+            string nomeI, nomeJ;
+            ordenacao.open("ordenacao.txt",ios::in);
+                    while(getline(ordenacao,nomeOrd,';')){
+                        if(ordenacao.eof())
+                            break;
+                        getline(ordenacao,linhaOrd);
+                        n = stoi(linhaOrd);
+                        if(n == numeracao[i]){
+                            nomeI = nomeOrd;
+                        }
+                        else if(n == numeracao[j]){
+                            nomeJ = nomeOrd;
+                        }
+                    }
+                    ordenacao.close();
+            if ((recomendacao[i] > recomendacao[j]) || (recomendacao[i] == recomendacao[j] && nomeI.compare(nomeJ) < 0)){
+                int pos = recomendacao[i];
+                recomendacao[i] = recomendacao[j];
+                recomendacao[j] = pos;
+                pos = numeracao[i];
+                numeracao[i] = numeracao[j];
+                numeracao[j] = pos; 
+            }
+        } 
+    }
+    //
+    //Recomendações
+    //
+        cout << "Recomendações : " <<endl;
+    for (unsigned int i=0;i<recomendacao.size();i++){
+        ordenacao.open("ordenacao.txt",ios::in);
+            while(getline(ordenacao,nomeOrd,';')){
+                if(ordenacao.eof())
+                    break;
+                getline(ordenacao,linhaOrd);
+                n = stoi(linhaOrd);
+                if(n == numeracao[i] && recomendacao[i] > 0){
+                    cout << " -" << i+1 << ")" << nomeOrd << endl;
+                    break;
+                }
+            }
+            ordenacao.close();
+        if (i == 9)
+            break;
+    }
+    remove("ordenacao.txt");
 }
 

@@ -19,7 +19,9 @@ using namespace std;
             void mostrarCarrinho();
             float getTotal(); 
             void reset();
+            void reset(vector<string> nomesProdutos);
             vector<string> getNomesProdutos();
             vector<string> getCategorias();
+            void remCategorias(string categoriasBusca);
     };
 #endif
