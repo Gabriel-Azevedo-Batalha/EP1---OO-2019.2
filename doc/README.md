@@ -1,10 +1,18 @@
+Bibliotecas necessárias :
+-iostream
+-vector
+-string
+-fstream
+-sstream
+-stdlib.h
+
 Compilar e executar:
     1)make clean (Optativo mas recomendado)
     2)make
     3)make run
 
 Intruções de uso:
-    Observações: Todas as perguntas[S/N] consideram 'S' e 's' "sim" e os demais caracteres "não"
+    Observações: Todas as perguntas(S/N) consideram 'S' e 's' "sim" e os demais caracteres "não"
                  Mesmo quando não especificado, digitar algo não esperado resutará em mensagem de erro (Exceto o caso acima)
 		 Alterar um arquivo manualmente pode gerar erros (Principalmente deletar linhas)
 
@@ -73,6 +81,3 @@ Intruções de uso:
             -Sair 
                 -Se ele sair uma mensagem de erro ("ERRO : Não foi possível fazer o login" ) será mostrada e o programa retornará a tela inicial (Esvaziando todo carrinho)
     4.3)O status de sócio será detectado automaticamente e para o cliente recém cadastrado será falso
-
-
-
