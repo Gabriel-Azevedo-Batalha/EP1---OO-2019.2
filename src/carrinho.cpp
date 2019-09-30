@@ -24,8 +24,8 @@ void Carrinho::addCarrinho(string buscaNome){
     int estoque;
     vector<string> categorias;
     bool encontrado = false, falta = false;
-    produtos.open("produtos.txt",ios::in);
-    temp.open("temp.txt",ios::out|ios::app);
+    produtos.open("arquivos/produtos.txt",ios::in);
+    temp.open("arquivos/temp.txt",ios::out|ios::app);
     while(getline(produtos,nome,';')){
         if (produtos.eof())
             break;
@@ -53,7 +53,6 @@ void Carrinho::addCarrinho(string buscaNome){
             this->total += preco;
             this->nomesProdutos.push_back(nome);
             for(unsigned int i=0;i<categorias.size();i++){
-                cout << "Adicionado : " << categorias[i] << endl;
                 this->categorias.push_back(categorias[i]);
             }
             encontrado = true;
@@ -65,10 +64,10 @@ void Carrinho::addCarrinho(string buscaNome){
     if (encontrado == false)
         cout << endl << "ERRO : Não foi possível encontrar o produto" << endl;
     produtos.close();
-    remove("produtos.txt");
+    remove("arquivos/produtos.txt");
     temp.close();
-    rename("temp.txt","produtos.txt");
-    remove("temp.txt");
+    rename("arquivos/temp.txt","arquivos/produtos.txt");
+    remove("arquivos/temp.txt");
 
 }
 float Carrinho::getTotal(){
@@ -81,7 +80,7 @@ void Carrinho::mostrarCarrinho(){
     cout << "Itens no carrinho:" << endl;
     for(unsigned int i=0;i<this->nomesProdutos.size();i++){
         cout << " -" << this->nomesProdutos[i];
-        produtos.open("produtos.txt",ios::in);
+        produtos.open("arquivos/produtos.txt",ios::in);
         while(getline(produtos,nome,';')){
             if (produtos.eof())
                 break;
@@ -105,8 +104,8 @@ void Carrinho::remCarrinho(string buscaNome){
             float preco;
             int estoque;
             vector<string> categorias;
-            produtos.open("produtos.txt",ios::in);
-            temp.open("temp.txt",ios::out|ios::app);
+            produtos.open("arquivos/produtos.txt",ios::in);
+            temp.open("arquivos/temp.txt",ios::out|ios::app);
             encontrado = true;
             while(getline(produtos,nome,';')){
                 if (produtos.eof())
@@ -122,17 +121,16 @@ void Carrinho::remCarrinho(string buscaNome){
                     this->total -= preco;
                     std::istringstream iss(linha);
                     for(; iss >> linha; ){
-                        cout << "Removido : " << linha << endl;
                         this->remCategorias(linha);
                     }
                 }
                 temp << nome << ";" << preco <<";" << estoque << ";" << linha2 << endl;
             }
             produtos.close();
-            remove("produtos.txt");
+            remove("arquivos/produtos.txt");
             temp.close();
-            rename("temp.txt","produtos.txt");
-            remove("temp.txt");
+            rename("arquivos/temp.txt","arquivos/produtos.txt");
+            remove("arquivos/temp.txt");
         }
     }
     if (encontrado == false)
@@ -146,7 +144,9 @@ vector<string> Carrinho::getCategorias(){
 }
 void Carrinho::remCategorias(string categoriasBusca){
     for(unsigned int i=0;i<this->categorias.size();i++){
-        if (this->categorias[i] == categoriasBusca)
+        if (this->categorias[i] == categoriasBusca){
             this->categorias.erase(this->categorias.begin()+i);
+            break;
+        }
     }
 }

@@ -23,8 +23,12 @@ void Produto::addLista(){
     string nome, preco, linha;
     int estoque;
     bool encontrado = false;
-    produtos.open("produtos.txt",ios::in);
-    temp.open("temp.txt",ios::out|ios::app);
+
+    produtos.open("arquivos/produtos.txt",ios::in);
+    temp.open("arquivos/temp.txt",ios::out|ios::app);
+
+    //Procura o produto na lista
+
     while(getline(produtos,nome,';')){
         if (produtos.eof())
             break;
@@ -58,10 +62,10 @@ void Produto::addLista(){
         temp << endl;
     }
     produtos.close();
-    remove("produtos.txt");
+    remove("arquivos/produtos.txt");
     temp.close();
-    rename("temp.txt","produtos.txt");
-    remove("temp.txt");
+    rename("arquivos/temp.txt","arquivos/produtos.txt");
+    remove("arquivos/temp.txt");
 
 }
 void Produto::addCategoria(string categoria){

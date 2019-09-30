@@ -1,4 +1,4 @@
-12345678901;haha;1;Roupa Música Rock Alimento Luxo Roupa Música Rock 
+12345678901;haha;1;Roupa Música Rock Alimento Luxo Roupa Música Rock Alimento Doce 
 10987654321;hehe;1;Roupa Alimento Doce 
 12312312312;hihi;0;Música Rock Música Rock 
 32132132132;hoho;0;Roupa Música Rock Roupa 
@@ -9,3 +9,5 @@
 22222222222;222;1;Alimento 
 44444444444;444;0;Roupa 
 33333333333;333;0;Música Rock 
+55555555555;555;0;Literatura Informativo Eletrônico 
+88888888888;888;1;Roupa 

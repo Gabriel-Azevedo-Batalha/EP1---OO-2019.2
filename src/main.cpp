@@ -7,7 +7,6 @@ using namespace std;
 
 int main(){
     // Interface
-    fstream produtos;
     Cliente cliente;
     system("clear");
     while(1){
@@ -25,6 +24,7 @@ int main(){
         //Modo Venda
        
         if(mode == "1"){
+            system("clear");
             Carrinho carrinho;
             while(1){
                 cout << endl << "---VENDA---" << endl << endl;
@@ -205,8 +205,8 @@ int main(){
         //Modo Estoque
 
         else if(mode == "3"){
+            system("clear");
             while(1){
-                system("clear");
                 cout << "---ESTOQUE---" << endl << endl;
                 cout << "1-Adicionar produto" << endl;
                 cout << "2-Sair" << endl << endl;
@@ -227,6 +227,7 @@ int main(){
                         novoProduto.addCategoria(categoria);
                         cout << "Deseja adicionar mais categorias ?[S/N]" << endl << "Input -> ";
                         cin >> opc;
+                        cout << endl << endl;
 
                         //Não adicionar mais categorias
 

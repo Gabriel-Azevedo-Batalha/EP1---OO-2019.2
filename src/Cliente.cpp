@@ -16,8 +16,8 @@ bool Cliente::getSocio(){
 void Cliente::tornarSocio(string buscaCPF){
     fstream clientes,temp;
     string CPF, linha;
-    clientes.open("clientes.txt",ios::in);
-    temp.open("temp.txt",ios::out|ios::app);
+    clientes.open("arquivos/clientes.txt",ios::in);
+    temp.open("arquivos/temp.txt",ios::out|ios::app);
     while(getline(clientes,CPF,';')){
         if (clientes.eof())
                 break;
@@ -35,10 +35,10 @@ void Cliente::tornarSocio(string buscaCPF){
         }
     }
     clientes.close();
-    remove("clientes.txt");
+    remove("arquivos/clientes.txt");
     temp.close();
-    rename("temp.txt","clientes.txt");
-    remove("temp.txt");
+    rename("arquivos/temp.txt","arquivos/clientes.txt");
+    remove("arquivos/temp.txt");
 }
 string Cliente::getCPF(){
     return CPF;
@@ -57,7 +57,7 @@ void Cliente::login(){
         cout << "Input -> ";
         cin >> buscaCPF;
         cout << endl;
-        clientes.open("clientes.txt",ios::in);
+        clientes.open("arquivos/clientes.txt",ios::in);
         while(getline(clientes,CPF,';')){
             if (clientes.eof())
                 break;
@@ -122,7 +122,7 @@ void Cliente::login(){
 }
 void Cliente::cadastrar(string CPF){
     fstream clientes;
-    clientes.open("clientes.txt",ios::out|ios::app);
+    clientes.open("arquivos/clientes.txt",ios::out|ios::app);
     std::cout << "Novo Cadastro" << endl << endl;
     while(1){
         int teste = 0; 
@@ -163,8 +163,8 @@ void Cliente::pagar(float total){
 void Cliente::setCategorias(vector<string> categorias){
     fstream clientes,temp;
     string CPF, linha;
-    clientes.open("clientes.txt",ios::in);
-    temp.open("temp.txt",ios::out|ios::app);
+    clientes.open("arquivos/clientes.txt",ios::in);
+    temp.open("arquivos/temp.txt",ios::out|ios::app);
     while(getline(clientes,CPF,';')){
         if (clientes.eof())
                 break;
@@ -190,10 +190,10 @@ void Cliente::setCategorias(vector<string> categorias){
             temp << linha << endl;
     }
     clientes.close();
-    remove("clientes.txt");
+    remove("arquivos/clientes.txt");
     temp.close();
-    rename("temp.txt","clientes.txt");
-    remove("temp.txt");
+    rename("arquivos/temp.txt","arquivos/clientes.txt");
+    remove("arquivos/temp.txt");
 }
 vector<string> Cliente::getCategorias(){
     return this->categoriasRecentes;
@@ -210,8 +210,8 @@ void Cliente::recomendar(){
     //
     //Criando arquivo de numeração dos produtos
     //
-    produtos.open("produtos.txt",ios::in);
-    ordenacao.open("ordenacao.txt",ios::out|ios::app);
+    produtos.open("arquivos/produtos.txt",ios::in);
+    ordenacao.open("arquivos/ordenacao.txt",ios::out|ios::app);
     while(getline(produtos,nome,';')){
         if (produtos.eof())
             break;
@@ -229,7 +229,7 @@ void Cliente::recomendar(){
     //Adicionando Graus de recomendação
     //
     for(unsigned int i=0;i<this->categoriasRecentes.size();i++){
-        produtos.open("produtos.txt",ios::in);
+        produtos.open("arquivos/produtos.txt",ios::in);
         while(getline(produtos,nome,';')){
             if (produtos.eof())
                 break;
@@ -241,7 +241,7 @@ void Cliente::recomendar(){
                 temp.push_back(linha);
             for(unsigned int j=0;j<temp.size();j++){
                 if (temp[j] == categoriasRecentes[i]){
-                    ordenacao.open("ordenacao.txt",ios::in);
+                    ordenacao.open("arquivos/ordenacao.txt",ios::in);
                     while(getline(ordenacao,nomeOrd,';')){
                         if(ordenacao.eof())
                             break;
@@ -267,7 +267,7 @@ void Cliente::recomendar(){
     for (unsigned int i=0;i<recomendacao.size();i++){
         for(unsigned int j=0;j<i;j++){
             string nomeI, nomeJ;
-            ordenacao.open("ordenacao.txt",ios::in);
+            ordenacao.open("arquivos/ordenacao.txt",ios::in);
                     while(getline(ordenacao,nomeOrd,';')){
                         if(ordenacao.eof())
                             break;
@@ -296,7 +296,7 @@ void Cliente::recomendar(){
     //
         cout << "Recomendações : " <<endl;
     for (unsigned int i=0;i<recomendacao.size();i++){
-        ordenacao.open("ordenacao.txt",ios::in);
+        ordenacao.open("arquivos/ordenacao.txt",ios::in);
             while(getline(ordenacao,nomeOrd,';')){
                 if(ordenacao.eof())
                     break;
@@ -311,6 +311,6 @@ void Cliente::recomendar(){
         if (i == 9)
             break;
     }
-    remove("ordenacao.txt");
+    remove("arquivos/ordenacao.txt");
 }
 
