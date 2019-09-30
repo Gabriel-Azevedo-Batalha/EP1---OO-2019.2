@@ -12,8 +12,8 @@ Compilar e executar:
     3)make run
 
 Intruções de uso:
-    Observações: -Todas as perguntas(S/N) consideram 'S' e 's' "sim" e os demais caracteres "não"
-                 -Mesmo quando não especificado, digitar algo não esperado resutará em mensagem de erro (Exceto o caso acima)
+    Observações: -Todas as perguntas(S/N) consideram 'S' e 's' "sim" e os demais caracteres "não"       
+                 -Mesmo quando não especificado, digitar algo não esperado resutará em mensagem de erro (Exceto o caso acima)       
 		 -Alterar um arquivo manualmente pode gerar erros (Principalmente deletar linhas)
 
     1)Interface inicial
