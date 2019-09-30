@@ -11,3 +11,6 @@
 33333333333;333;0;Música Rock 
 55555555555;555;0;Literatura Informativo Eletrônico 
 88888888888;888;1;Roupa 
+77777777777;777;1;Alimento Doce Alimento Doce 
+23423423456;ahnes;0;Luxo Alimento 
+01234567890;000;0;Música Rock 

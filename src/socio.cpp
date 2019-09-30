@@ -19,11 +19,11 @@ float Socio::getDesconto(){
     return this->desconto;
 }
 void Socio::pagar(bool taxa){
+    cout << "Desconto : R$" << this->desconto << endl;
     if (taxa == true){
         cout << "Taxa de adesão : R$500" << endl;
         this->totalReal += 500.00;
     }
     cout << "Total Real : R$" << this->totalReal << endl;
-    cout << "Desconto : R$" << this->desconto << endl;
     cout << "Compra efetuada" << endl;
 }

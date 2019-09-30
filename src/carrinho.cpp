@@ -131,6 +131,7 @@ void Carrinho::remCarrinho(string buscaNome){
             temp.close();
             rename("arquivos/temp.txt","arquivos/produtos.txt");
             remove("arquivos/temp.txt");
+            break;
         }
     }
     if (encontrado == false)
